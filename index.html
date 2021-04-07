@@ -8,28 +8,31 @@
   <title>Bellybutton Biodiversity</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+  <!-- Additional custom styling -->
+  <link rel="stylesheet" href="static/css/styles.css">
 </head>
 
 <body>
-
   <div class="container">
-    <div class="row">
+    <div class="row"
+      style="background:transparent url('static/Cultures.jpg') no-repeat center center /cover">
       <div class="col-md-12 jumbotron text-center">
-        <h1>Belly Button Biodiversity Dashboard</h1>
-        <p>Use the interactive charts below to explore the dataset</p>
+        <h1 class="display-5">Microbial Diversity Dashboard</h1>
+        <p>Use the interactive charts below to explore the Belly Button Biodiversity dataset</p>
+        <a class="btn btn-dark btn-lg" href="http://robdunnlab.com/projects/belly-button-biodiversity/" role="button">Learn more about this project</a>
       </div>
     </div>
     <div class="row">
       <div class="col-md-2">
         <div class="card mb-4">
-          <div class="card-header text-center header-font">Test Subject ID No.:</div>
-          <div class="card-body p-2 text-center">
+          <div class="card-header text-center header-font text-light mycard-bg display-6">Test Subject ID:</div>
+          <div class="card-body p-2 text-center bg-light">
             <select id="selDataset" onchange="optionChanged(this.value)"></select>
           </div>
         </div>
         <div class="card">
-          <div class="card-header text-center header-font">Demographic Info</div>
-          <div class="card-body p-2" id="sample-metadata"></div>
+          <div class="card-header text-center header-font text-light mycard-bg">Test Subject Details:</div>
+          <div class="card-body p-2 bg-light" id="sample-metadata"></div>
         </div>
       </div>
       <div class="col-md-5">

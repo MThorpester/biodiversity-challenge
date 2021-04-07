@@ -1,0 +1,15 @@
+/* Highlight the selected "thumbnail" card on the right of the screen when displaying its main visualization page */
+
+.jumbotron {
+  background: none;             /* Transparent background */}
+
+.mycard-bg {
+  background-color: #e67300
+}
+.card .card-header {
+  font-size: 15px;
+  font-weight: bold;
+}
+.details-text {
+  font-size: 12px;
+}

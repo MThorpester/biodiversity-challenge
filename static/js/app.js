@@ -54,11 +54,13 @@ function BuildCharts(SubjectID) {
        // Retrieve selected subjects metadata
        var SubjectMetadata = results.metadata.filter(subject => subject.id == SubjectID)[0];
        console.log("SubjectMetadata= ", SubjectMetadata); 
-       // Create a list group in the Demographic Info card  
+       // Create a list group in the Demographic Info card with some special styling  
        var metadataList = metadataCard.append("ul").attr("class", "list-group list-group-flush");
        // Iterate through each key-value pair getting the values to build the Demographics panel
        Object.entries(SubjectMetadata).forEach(([key, value]) => {
-           var metadataItem = metadataList.append("li").attr("class", "list-group-item").text(`${key}: ${value}`);
+           var metadataItem = metadataList.append("li").
+           attr("class", "list-group-item p-1 details-text").
+           text(`${key}: ${value}`);
        });
         //------------------------------------------
         // Prepare the Data for the Charts
@@ -116,12 +118,22 @@ function BuildCharts(SubjectID) {
             y:  Top10_string_labels,
             text: Top10_labels,
             type: 'bar',
-            orientation: 'h'
+            orientation: 'h',
+            marker: {
+                color: '#ffa64d'
+              },
         };
+        // marker: {
+        //     color: 'rgba(55,128,191,0.6)',
+        //     width: 1
+        //   },
 
         var BarData = [BarTrace];
         var BarLayout = {
-            title: "Top 10 Microbes in this Sample"
+            title: "Top 10 Microbes in this Sample",
+            font:{
+                family: 'Raleway, sans-serif'
+              },
             };
         
         // Plot the Bar Chart into the html div
@@ -139,7 +151,7 @@ function BuildCharts(SubjectID) {
             marker: {
                 size: OTU_values[0],
                 color: OTU_IDs[0],
-                colorscale: 'Picnic'
+                colorscale: 'YlOrRd'
             }
         };
 
