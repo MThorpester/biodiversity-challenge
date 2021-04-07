@@ -37,22 +37,6 @@ function init() {
 // 4- Retriev/prepare data and build metadata table
 // 5-Retrieve/prepare data and build Gauge Chart
 
-// function BuildCharts(SubjectID) {
-//      // Select the Metadata panel
-//      var MetadataPanel = d3.select("#sample-metadata");
-//     // Read in JSON samples, getting the Subject ID from each one and using them to build the dropdown menu options
-//     d3.json("samples.json").then((samples => {
-//         // Retrieve selected subjects metadata
-//         var SubjectMetadata = samples.metadata.filter(subject => subject.id == SubjectID)[0];
-//         console.log("SubjectMetadata= ", SubjectMetadata);   
-//         // Iterate through each key-value pair getting the values to build the Demographics panel
-//         Object.entries(SubjectMetadata).forEach(([key, value]) => {
-//             var panelitems = MetadataPanel.append("div").attr("class", "panel-body").text(`${key}: ${value}`);
-//         });
-//     }));  
-    
-// }
-
 function BuildCharts(SubjectID) {
 
      // Select the Metadata card in Index.html
@@ -77,7 +61,7 @@ function BuildCharts(SubjectID) {
            var metadataItem = metadataList.append("li").attr("class", "list-group-item").text(`${key}: ${value}`);
        });
         //------------------------------------------
-        // Create the Bar Chart
+        // Prepare the Data for the Charts
         //------------------------------------------
         // Retrieve the sample data for the selected subject
         var SubjectSample = results.samples.filter(sample => sample.id == SubjectID)[0];
@@ -109,6 +93,9 @@ function BuildCharts(SubjectID) {
         console.log("OTU_labels: ", OTU_labels);
         console.log("OTU_values: ", OTU_values);
 
+         //------------------------------------------
+        // Create the Bar Chart
+        //------------------------------------------
         // Get the 10 specimens (OTUs) that occur most abundantly in this sample
         // Note: Don't need to sort because the JSON data is already in sorted sequence - descending by value
 
@@ -139,17 +126,33 @@ function BuildCharts(SubjectID) {
         
         // Plot the Bar Chart into the html div
         Plotly.newPlot("bar", BarData, BarLayout);
+        
+        //------------------------------------------
+        // Create the Bubble Chart
+        //------------------------------------------
 
+        var BubbleTrace = {
+            x:  OTU_IDs[0],
+            y:  OTU_values[0],
+            text: OTU_labels[0],
+            mode: 'markers',
+            marker: {
+                size: OTU_values[0],
+                color: OTU_IDs[0],
+                colorscale: 'Picnic'
+            }
+        };
 
-        // var layout = {
-        //     title: "Eye Color vs Flicker",
-        //     xaxis: { title: "Eye Color" },
-        //     yaxis: { title: "Flicker Frequency", range: [20,30]}
-        //   };
+        var BubbleData = [BubbleTrace];
 
+        var BubbleLayout = {
+            title: "Specimen Composition of this Sample",
+            xaxis: { title: "OTU ID" }
+         };
+        // Plot the Bubble Chart into the html div
+        Plotly.newPlot("bubble", BubbleData, BubbleLayout);
    }));  
-   
-   
+       
 }
 
 
