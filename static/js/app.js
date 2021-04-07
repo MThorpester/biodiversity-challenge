@@ -1,19 +1,13 @@
-// @TODO Initialize D3 selectors
-
-
-// @TODO Create optionChanged function that gets executed when a change is detected in the selected dropdown value
-// Note: this function is referenced in the Index.html file
-// It should call the BuildCharts function passing it the selected Subhect ID
-// function optionChanged(selectedID) {}
-
-
-//@TODO Initialization function that:
-// 1- Retrieves the Subject IDs from the samples dataset to populate the dropdown
-// 2- Calls the BuildCharts function (passing the first Subject ID) 
+//------------------------------------------
+// Initialization
+//------------------------------------------
+//This function initializes the page and loads the default charts:
+//  - retrieves the Subject IDs from the samples dataset to populate the dropdown menu
+//  - calls the BuildCharts function for the first Subject ID in the list
 function init() {
     // Select the dropdown menu element
     var selection = d3.select("#selDataset"); 
-    // Read in JSON samples, getting the Subject ID from each one and using them to build the dropdown menu options
+    // Read in JSON samples, getting all of the Subject IDs and using them to build the dropdown menu options
     d3.json("samples.json").then((results => {
         results.names.forEach((name => {
             selection
@@ -24,19 +18,30 @@ function init() {
         var initial_ID = selection.property("value");
         console.log("initial_ID= ",initial_ID);
 
-        // @TODO Call the BuildCharts function with the initial subject ID
+        // Call the BuildCharts function with the initial subject ID
         BuildCharts(initial_ID);
        
     }));
 }
-    
- //@TODO BuildCharts function - retrieves and prepares the necessary data for the subject id and builds the Plotly charts
-// 1- Retrieve/prepare the data needed to build charts
-// 2- Build Bar Chart
-// 3- Retrieve/prepare data and build Bubble Chart
-// 4- Retriev/prepare data and build metadata table
-// 5-Retrieve/prepare data and build Gauge Chart
 
+//------------------------------------------
+// New Menu Item Selected
+//------------------------------------------
+// This function gets executed when a change is detected in the selected dropdown value
+// Note: it is referenced in the Index.html file
+function optionChanged(selectedID) {
+    console.log("Option changed - new subject ID: ", selectedID);
+    // Clear out the previous subject's metadata from the card
+    var oldMetadata = d3.select("ul", "#sample-metadata");
+    oldMetadata.remove();
+    // Build the Charts
+    BuildCharts(selectedID);
+}
+    
+//------------------------------------------
+// Build the Charts
+//------------------------------------------ 
+//This function retrieves and prepares the necessary data for the subject id and builds the Plotly charts
 function BuildCharts(SubjectID) {
 
      // Select the Metadata card in Index.html
