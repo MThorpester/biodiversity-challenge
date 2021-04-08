@@ -56,8 +56,9 @@ function BuildCharts(SubjectID) {
        //------------------------------------------
        // Create the Metadata Card
        //------------------------------------------
-       // Retrieve selected subjects metadata
+       // Retrieve selected subjects metadata and grab the washing frequency for later
        var SubjectMetadata = results.metadata.filter(subject => subject.id == SubjectID)[0];
+       var WashingFrequency = SubjectMetadata.wfreq;
        console.log("SubjectMetadata= ", SubjectMetadata); 
        // Create a list group in the Demographic Info card with some special styling  
        var metadataList = metadataCard.append("ul").attr("class", "list-group list-group-flush");
@@ -168,8 +169,50 @@ function BuildCharts(SubjectID) {
          };
         // Plot the Bubble Chart into the html div
         Plotly.newPlot("bubble", BubbleData, BubbleLayout);
+
+        //--------------------------------------------
+        // Create the Gauge chart
+        //--------------------------------------------
+        // Plot the washing frequency 
+        var GaugeData = [
+            {
+              domain: { x: [0, 1], y: [0, 1] },
+              value: WashingFrequency,
+              title: { text: "Weekly Washing Frequency" },
+              type: "indicator",
+              mode: "gauge+number",
+              gauge: {
+                axis: { range: [null, 10], tickwidth: 1, tickcolor: "saddlebrown" },
+                bar: { color: "darkorange" },
+                bgcolor: "white",
+                bordercolor: "saddlebrown",
+                steps: [
+                  { range: [0, 1], color: "seashell" },
+                  { range: [1, 2], color: "papayawhip" },
+                  { range: [2, 3], color: "moccasin" },
+                  { range: [3, 4], color: "peachpuff" },
+                  { range: [4, 5], color: "lightsalmon" },
+                  { range: [5, 6], color: "salmon" },
+                  { range: [6, 7], color: "darksalmon" },
+                  { range: [7, 8], color: "indianred" },
+                  { range: [8, 9], color: "sandybrown" },
+                  { range: [9, 10], color: "chocolate" }
+                ],
+                borderwidth: 2
+            }}
+        ];
+         
+                   
+          // gauge: { axis: { range: [null, 10] } }
+
+          var GaugeLayout = { width: 600, height: 400 };
+          Plotly.newPlot('gauge', GaugeData, GaugeLayout);
    }));  
+
+
+    
        
+
 }
 
 
