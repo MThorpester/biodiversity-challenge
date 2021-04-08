@@ -129,17 +129,24 @@ function BuildCharts(SubjectID) {
                 color: '#ffa64d'
               },
         };
-        // marker: {
-        //     color: 'rgba(55,128,191,0.6)',
-        //     width: 1
-        //   },
-
+       
         var BarData = [BarTrace];
         var BarLayout = {
-            title: "Top 10 Microbes in this Sample",
+            title:{
+                text: `<b>Top 10 Microbes in this Sample</b>`,
+                font:{
+                    size: 18
+                },
+                xref: "paper",
+                yref: "paper",
+                y: 1.0,
+                yanchor: "bottom"
+            },
             font:{
                 family: 'Raleway, sans-serif'
               },
+            width: 600,
+            height: 500
             };
         
         // Plot the Bar Chart into the html div
@@ -178,7 +185,11 @@ function BuildCharts(SubjectID) {
             {
               domain: { x: [0, 1], y: [0, 1] },
               value: WashingFrequency,
-              title: { text: "Weekly Washing Frequency" },
+              title: { text: `<b>Belly Button Washing Frequency</b><br>Scrubs per Week` },
+              font:{
+                size: 18,
+                family: 'Raleway, sans-serif'
+                },
               type: "indicator",
               mode: "gauge+number",
               gauge: {
@@ -195,8 +206,8 @@ function BuildCharts(SubjectID) {
                   { range: [5, 6], color: "salmon" },
                   { range: [6, 7], color: "darksalmon" },
                   { range: [7, 8], color: "indianred" },
-                  { range: [8, 9], color: "sandybrown" },
-                  { range: [9, 10], color: "chocolate" }
+                  { range: [8, 9], color: "peru" },
+                  { range: [9, 10], color: "sienna" }
                 ],
                 borderwidth: 2
             }}
@@ -205,7 +216,7 @@ function BuildCharts(SubjectID) {
                    
           // gauge: { axis: { range: [null, 10] } }
 
-          var GaugeLayout = { width: 600, height: 400 };
+          var GaugeLayout = { width: 500, height: 450 };
           Plotly.newPlot('gauge', GaugeData, GaugeLayout);
    }));  
 
