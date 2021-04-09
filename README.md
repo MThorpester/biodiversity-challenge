@@ -15,7 +15,7 @@ The project consists of:
 - a Javascript file (app.js)
 - an HTML file (index.html)
 - a file of test samples (samples.json)
-- various Bootstrap CSS, image and Jquery files
+- various Bootstrap, Plotly, CSS, image and Jquery files.
 
 ## Getting Started
 
